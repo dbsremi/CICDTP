@@ -70,16 +70,14 @@ jobs:
         with:
           project_id: ${{ env.GCP_PROJECT_ID }}
 
-      - name: Install Cloud SQL Proxy
+      - name: Install Cloud SQL Proxy (v1)
         run: |
-          curl -sSL https://github.com/GoogleCloudPlatform/cloud-sql-proxy/releases/download/v2.11.4/cloud-sql-proxy.linux.amd64 -o cloud-sql-proxy
-          chmod +x cloud-sql-proxy
+          wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+          chmod +x cloud_sql_proxy
 
       - name: Start Cloud SQL Proxy
         run: |
-          ./cloud-sql-proxy "${DB_INSTANCE_CONNECTION_NAME}" \
-            --address 127.0.0.1 \
-            --port 3306 &
+          ./cloud_sql_proxy -instances=${DB_INSTANCE_CONNECTION_NAME}=tcp:3306 &
           sleep 15
 
       - name: Build migrations image
