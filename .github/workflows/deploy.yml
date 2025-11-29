@@ -87,6 +87,7 @@ jobs:
       - name: Run DB migrations
         run: |
           docker run --rm \
+            --network=host \
             -e DB_HOST=127.0.0.1 \
             -e DB_USER="${DB_USER}" \
             -e DB_PASSWORD="${DB_PASSWORD}" \
