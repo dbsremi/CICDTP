@@ -1,0 +1,67 @@
+Base de données initialisée
+Serveur démarré sur le port 3000
+Health check: http://localhost:3000/health
+API Users: http://localhost:3000/api/users
+{
+  timestamp: '2025-11-04T15:59:13.171Z',
+  level: 'info',
+  message: 'Listes des utilisateurs récupérée',
+  endpoint: 'GET /api/users',
+  count: 0
+}
+{
+  timestamp: '2025-11-04T15:59:13.171Z',
+  level: 'info',
+  message: 'Listes des utilisateurs récupérée',
+  endpoint: 'GET /api/users',
+  count: 0
+}
+{
+  timestamp: '2025-11-04T15:59:13.171Z',
+  level: 'error',
+  message: 'Listes des utilisateurs récupérée',
+  endpoint: 'GET /api/users',
+  count: 0
+}
+{
+  timestamp: '2025-11-04T15:59:13.171Z',
+  level: 'error',
+  message: 'Listes des utilisateurs récupérée',
+  endpoint: 'GET /api/users',
+  count: 0
+}
+{
+  timestamp: '2025-11-04T15:59:13.171Z',
+  level: 'error',
+  message: 'Listes des utilisateurs récupérée',
+  endpoint: 'GET /api/users',
+  count: 0
+}
+{
+  timestamp: '2025-11-04T15:59:13.171Z',
+  level: 'error',
+  message: 'Listes des utilisateurs récupérée',
+  endpoint: 'GET /api/users',
+  count: 0
+}
+{
+  timestamp: '2025-11-04T15:59:13.171Z',
+  level: 'error',
+  message: 'Listes des utilisateurs récupérée',
+  endpoint: 'GET /api/users',
+  count: 0
+}
+{
+  timestamp: '2025-11-04T15:59:13.171Z',
+  level: 'error',
+  message: 'Listes des utilisateurs récupérée',
+  endpoint: 'GET /api/users',
+  count: 0
+}
+{
+  timestamp: '2025-11-04T15:59:13.171Z',
+  level: 'error',
+  message: 'Listes des utilisateurs récupérée',
+  endpoint: 'GET /api/users',
+  count: 0
+}

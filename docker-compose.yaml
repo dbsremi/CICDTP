@@ -1,0 +1,53 @@
+services:
+  db:
+    image: mariadb:10.11
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+  app:
+    build: ./App
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PORT: ${PORT}
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      LOG_DIR: /var/logs/crud
+    volumes:
+      - ./logs:/var/logs/crud
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+  fluent-bit:
+    image: cr.fluentbit.io/fluent/fluent-bit:3.0.7
+    container_name: fluent-bit
+    depends_on:
+      - app
+    volumes:
+      - ./logs:/var/logs/crud:ro
+      - ./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf:ro
+      - ./parsers.conf:/fluent-bit/etc/parsers.conf:ro
+
+    environment:
+      LOKI_URL: 35.189.255.208
+      APP_ENV: dev
+      PROJECT_NAME: crud_app
+    restart: unless-stopped
+
+volumes:
+  db_data:
