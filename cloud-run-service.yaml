@@ -17,8 +17,6 @@ spec:
           ports:
             - containerPort: 80
           env:
-            - name: PORT
-              value: "3000"
             # Cloud SQL via socket Unix
             - name: DB_SOCKET_PATH
               value: "/cloudsql/__DB_INSTANCE_CONNECTION_NAME__"
