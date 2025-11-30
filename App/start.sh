@@ -4,10 +4,9 @@ set -e
 # Créer le répertoire logs si n'existe pas
 mkdir -p /var/logs/crud
 
-# Lancer l'application Node en arrière-plan
 echo "Démarrage de Node.js..."
-nohup node index.js > /var/logs/crud/app.log 2>&1 &
+# Logs vers stdout (Cloud Run) + fichier (Fluent Bit)
+node index.js 2>&1 | tee /var/logs/crud/app.log &
 
-# Lancer Nginx au premier plan
 echo "Démarrage de Nginx..."
 nginx -g "daemon off;"

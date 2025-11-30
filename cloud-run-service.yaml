@@ -1,23 +1,22 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: crud-api
-  annotations:
-    run.googleapis.com/ingress: all
+  name: __CLOUD_RUN_SERVICE__
 spec:
   template:
     metadata:
       annotations:
         run.googleapis.com/cloudsql-instances: "__DB_INSTANCE_CONNECTION_NAME__"
+        run.googleapis.com/execution-environment: gen2
     spec:
-      serviceAccountName: "__CLOUD_RUN_SA_EMAIL__"
+      serviceAccountName: __CLOUD_RUN_SA_EMAIL__
       containers:
         - name: app
           image: "__API_IMAGE__"
           ports:
-            - containerPort: 80
+            - name: http1
+              containerPort: 80
           env:
-            # Cloud SQL via socket Unix
             - name: DB_SOCKET_PATH
               value: "/cloudsql/__DB_INSTANCE_CONNECTION_NAME__"
             - name: DB_USER
@@ -33,6 +32,7 @@ spec:
           volumeMounts:
             - name: logs
               mountPath: /var/logs/crud
+
         - name: fluent-bit
           image: "__FLUENT_IMAGE__"
           env:
@@ -45,9 +45,7 @@ spec:
           volumeMounts:
             - name: logs
               mountPath: /var/logs/crud
+
       volumes:
         - name: logs
           emptyDir: {}
-  traffic:
-    - percent: 100
-      latestRevision: true
